@@ -52,24 +52,35 @@ class Retriever:
 
         self.bm25 = BM25Okapi(word_lists)
 
-    def search(self, query, k=3):
-        query_words = tokenize(query)
+def search(self, query, k=3):
+    query_words = tokenize(query)
+    if not query_words:
+        return []
+    scores = self.bm25.get_scores(query_words)
 
-        scores = self.bm25.get_scores(query_words)
+    scored = []
+    for i in range(len(scores)):
+        scored.append((scores[i], i))
 
-        scored = []
-        for i in range(len(scores)):
-            scored.append((scores[i], i))
+    scored.sort(reverse=True)
 
-        scored.sort(reverse=True)
+    results = []
 
-        results = []
-        for score, i in scored[:k]:
-            chunk = self.chunks[i]
-            results.append({
-                "text": chunk["text"],
-                "source": chunk["source"],
-                "heading": chunk["heading"],
-                "score": score,
-            })
-        return results
+    MIN_SCORE = 1.0
+
+    for score, i in scored:
+        if score < MIN_SCORE:
+            continue
+
+        chunk = self.chunks[i]
+        results.append({
+            "text":     chunk["text"],
+            "source":   chunk["source"],
+            "heading":  chunk.get("heading", ""),
+            "score":    float(score),
+        })
+
+        if len(results) == k:
+            break
+
+    return results
