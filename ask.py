@@ -16,7 +16,7 @@ def build_context(chunks):
     return "\n\n---\n\n".join(parts)
 
 
-# --- Option A: Ollama (local) ---
+# --- Calling Ollama Model ---
 def call_llm(prompt):
     r = requests.post("http://localhost:11434/api/generate", json={
         "model": "llama3.2",
