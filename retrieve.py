@@ -40,7 +40,8 @@ def tokenize(text):
             meaningful.append(w)
     return meaningful
 
-
+MIN_SCORE = 1.0
+    
 class Retriever:
     def __init__(self, chunks_path="data/chunks.json"):
         with open(chunks_path) as f:
@@ -66,7 +67,7 @@ def search(self, query, k=3):
 
     results = []
 
-    MIN_SCORE = 1.0
+
 
     for score, i in scored:
         if score < MIN_SCORE:
