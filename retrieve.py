@@ -40,6 +40,7 @@ def tokenize(text):
             meaningful.append(w)
     return meaningful
 
+MIN_SCORE = 1.0
 
 class Retriever:
     def __init__(self, chunks_path="data/chunks.json"):
@@ -52,35 +53,30 @@ class Retriever:
 
         self.bm25 = BM25Okapi(word_lists)
 
-def search(self, query, k=3):
-    query_words = tokenize(query)
-    if not query_words:
-        return []
-    scores = self.bm25.get_scores(query_words)
+    def search(self, query, k=3):
+        query_words = tokenize(query)
+        if not query_words or k <= 0:
+            return []
 
-    scored = []
-    for i in range(len(scores)):
-        scored.append((scores[i], i))
+        scores = self.bm25.get_scores(query_words)
+        scored = sorted(
+            ((float(score), i) for i, score in enumerate(scores)),
+            reverse=True,
+        )
 
-    scored.sort(reverse=True)
+        results = []
+        for score, i in scored:
+            if score < MIN_SCORE:
+                continue
 
-    results = []
+            chunk = self.chunks[i]
+            results.append({
+                "text": chunk["text"],
+                "source": chunk["source"],
+                "heading": chunk.get("heading", ""),
+                "score": score,
+            })
+            if len(results) >= k:
+                break
 
-    MIN_SCORE = 1.0
-
-    for score, i in scored:
-        if score < MIN_SCORE:
-            continue
-
-        chunk = self.chunks[i]
-        results.append({
-            "text":     chunk["text"],
-            "source":   chunk["source"],
-            "heading":  chunk.get("heading", ""),
-            "score":    float(score),
-        })
-
-        if len(results) == k:
-            break
-
-    return results
+        return results

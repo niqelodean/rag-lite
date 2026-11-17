@@ -30,6 +30,11 @@ def call_llm(prompt):
 
 def answer(question, retriever, k=3):
     chunks = retriever.search(question, k)
+    if not chunks:
+        return {
+            "answer": "Not found in the docs.",
+            "sources": [],
+        }
     context = build_context(chunks)
     prompt = "CONTEXT:\n" + context + "\n\nQUESTION: " + question
 
