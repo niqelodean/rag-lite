@@ -162,6 +162,15 @@ rag_lite/
 - Replace or complement BM25 with vector embeddings and [ChromaDB](https://www.trychroma.com/) to improve retrieval when users phrase queries with synonyms that do not share exact keywords with the docs.
 - Add configurable model, Ollama endpoint, and retrieval settings.
 - Add automated checks for ingestion, chunk generation, retrieval quality, and citation coverage.
+ 
+## Evaluation
+This system was evaluated against a ground-truth dataset of 10 questions with known target files (`eval/questions.json`). Baseline BM25 performance:
+
+- **Hit Rate @ 1:** 40%
+- **Hit Rate @ 3:** 80%
+- **Mean Reciprocal Rank (MRR):** 0.567
+
+*Known limitation: BM25 struggles with synonyms (e.g., searching "add header" vs. "set header").* 
 
 ## License
 

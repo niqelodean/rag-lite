@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How do I declare a path parameter with a type?",
+    "expected_file": "tutorial/path-params.md"
+  },
+  {
+    "question": "What is Depends used for?",
+    "expected_file": "tutorial/dependencies/index.md"
+  },
+  {
+    "question": "How do I add a custom response header?",
+    "expected_file": "advanced/response-headers.md"
+  },
+  {
+    "question": "How do I use query parameters?",
+    "expected_file": "tutorial/query-params.md"
+  },
+  {
+    "question": "How do I enable CORS?",
+    "expected_file": "tutorial/cors.md"
+  },
+  {
+    "question": "How do I use Pydantic models for request bodies?",
+    "expected_file": "tutorial/body.md"
+  },
+  {
+    "question": "What are background tasks?",
+    "expected_file": "tutorial/background-tasks.md"
+  },
+  {
+    "question": "How do I test FastAPI applications?",
+    "expected_file": "tutorial/testing.md"
+  },
+  {
+    "question": "How do I use WebSockets?",
+    "expected_file": "advanced/websockets.md"
+  },
+  {
+    "question": "How do I use OAuth2 with JWT?",
+    "expected_file": "tutorial/security/oauth2-jwt.md"
+  }
+]
