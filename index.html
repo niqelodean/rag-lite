@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Docs RAG</title>
+    <!-- We include marked.js so the LLM's markdown (code blocks, bold text) renders nicely -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 { color: #059669; }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+        input[type="text"]:focus { border-color: #059669; }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #059669;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:disabled { background-color: #9ca3af; cursor: not-allowed; }
+        #answer-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #ecfdf5;
+            border-left: 4px solid #059669;
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+        #sources {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            font-family: monospace;
+        }
+        #loading { display: none; color: #059669; font-weight: bold; margin-top: 10px; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; }
+        code { font-family: monospace; }
+    </style>
+</head>
+<body>
+
+    <h1>FastAPI Docs RAG</h1>
+    <div class="container">
+        <p>Ask a question about FastAPI. The system will search the local docs and answer using Llama 3.2.</p>
+        
+        <form id="ask-form" class="input-group">
+            <input type="text" id="question" placeholder="e.g., How do I declare a path parameter?" required>
+            <button type="submit" id="submit-btn">Ask</button>
+        </form>
+
+        <div id="loading">Searching docs and generating answer... (this might take a few seconds)</div>
+
+        <div id="answer-box">
+            <div id="answer-content"></div>
+            <div id="sources"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('ask-form');
+        const questionInput = document.getElementById('question');
+        const submitBtn = document.getElementById('submit-btn');
+        const loadingDiv = document.getElementById('loading');
+        const answerBox = document.getElementById('answer-box');
+        const answerContent = document.getElementById('answer-content');
+        const sourcesDiv = document.getElementById('sources');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop the page from refreshing
+            
+            const question = questionInput.value;
+            
+            // Reset UI for a new question
+            submitBtn.disabled = true;
+            loadingDiv.style.display = 'block';
+            answerBox.style.display = 'none';
+
+            try {
+                // Send the question to our FastAPI backend
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+
+                if (!response.ok) throw new Error('Server error');
+
+                const data = await response.json();
+
+                // Render the answer (marked.parse turns markdown into HTML)
+                answerContent.innerHTML = marked.parse(data.answer);
+                
+                // Render the sources
+                sourcesDiv.innerHTML = "<strong>Sources retrieved:</strong><br>" + data.sources.join("<br>");
+
+                // Show the box
+                answerBox.style.display = 'block';
+            } catch (error) {
+                answerContent.innerHTML = "<span style='color:red;'>Error: Could not get an answer.</span>";
+                sourcesDiv.innerHTML = "";
+                answerBox.style.display = 'block';
+            } finally {
+                // Reset buttons
+                submitBtn.disabled = false;
+                loadingDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

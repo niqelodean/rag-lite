@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.responses import FileResponse 
 from pydantic import BaseModel
 
 from retrieve import Retriever
@@ -17,6 +18,9 @@ async def lifespan(app):
 
 app = FastAPI(lifespan=lifespan)
 
+@app.get("/")
+def serve_frontend():
+    return FileResponse("index.html")
 
 class AskBody(BaseModel):
     question: str
