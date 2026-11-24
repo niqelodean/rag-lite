@@ -195,7 +195,7 @@ Baseline BM25 results at `k=5` and `MIN_SCORE=1.0`:
 - **Recall @ 5:** 0.71
 - **Evidence @ 5:** 0.69
 
-Refusal questions are reported separately with each raw top score and the raw minimum, median, and maximum. Raw scores are measured before `MIN_SCORE`; they indicate retrieval strength, not whether the generated answer actually refuses. The baseline records hashes for the local documentation and chunk snapshot. The upstream commit for that existing snapshot was not recorded, so its origin cannot be reconstructed from the old baseline; future ingests use the pinned commit above.
+These metrics evaluate retrieval only; they do not measure answer quality, citation accuracy, or whether the LLM actually refuses an unsupported question. Refusal questions are reported separately with each raw top score and the raw minimum, median, and maximum. Raw scores are measured before `MIN_SCORE` and show retrieval strength, not refusal behavior. The baseline records hashes for the local documentation and chunk snapshot. The upstream commit for that existing snapshot was not recorded, so its origin cannot be reconstructed from the old baseline. To establish a baseline for the pinned snapshot, run `python ingest.py`, `python chunk.py`, `python eval/check_questions.py`, and `python eval/runeval.py`, then update `eval/baseline-v1.txt` with the new results and hashes.
 
 *Known limitation: BM25 struggles with synonyms (e.g., searching "add header" vs. "set header").*
 
