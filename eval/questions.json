@@ -1,42 +1,471 @@
 [
   {
+    "id": "q001",
+    "category": "single_fact",
     "question": "How do I declare a path parameter with a type?",
-    "expected_file": "tutorial/path-params.md"
+    "expected_sources": ["tutorial/path-params.md"],
+    "must_contain": ["int"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q002",
+    "category": "single_fact",
     "question": "What is Depends used for?",
-    "expected_file": "tutorial/dependencies/index.md"
+    "expected_sources": ["tutorial/dependencies/index.md"],
+    "must_contain": ["Depends"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q003",
+    "category": "single_fact",
     "question": "How do I add a custom response header?",
-    "expected_file": "advanced/response-headers.md"
+    "expected_sources": [
+      "advanced/response-headers.md",
+      "how-to/custom-request-and-route.md"
+    ],
+    "must_contain": ["headers"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q004",
+    "category": "ambiguous_or_short",
     "question": "How do I use query parameters?",
-    "expected_file": "tutorial/query-params.md"
+    "expected_sources": ["tutorial/query-params.md"],
+    "must_contain": ["query"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q005",
+    "category": "single_fact",
     "question": "How do I enable CORS?",
-    "expected_file": "tutorial/cors.md"
+    "expected_sources": ["tutorial/cors.md"],
+    "must_contain": ["CORSMiddleware"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q006",
+    "category": "single_fact",
     "question": "How do I use Pydantic models for request bodies?",
-    "expected_file": "tutorial/body.md"
+    "expected_sources": ["tutorial/body.md"],
+    "must_contain": ["BaseModel"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q007",
+    "category": "ambiguous_or_short",
     "question": "What are background tasks?",
-    "expected_file": "tutorial/background-tasks.md"
+    "expected_sources": ["tutorial/background-tasks.md"],
+    "must_contain": ["BackgroundTasks"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q008",
+    "category": "single_fact",
     "question": "How do I test FastAPI applications?",
-    "expected_file": "tutorial/testing.md"
+    "expected_sources": ["tutorial/testing.md"],
+    "must_contain": ["TestClient"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q009",
+    "category": "ambiguous_or_short",
     "question": "How do I use WebSockets?",
-    "expected_file": "advanced/websockets.md"
+    "expected_sources": ["advanced/websockets.md"],
+    "must_contain": ["WebSocket"],
+    "should_refuse": false,
+    "verified": false
   },
   {
+    "id": "q010",
+    "category": "single_fact",
     "question": "How do I use OAuth2 with JWT?",
-    "expected_file": "tutorial/security/oauth2-jwt.md"
+    "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
+    "must_contain": ["OAuth2PasswordBearer"],
+    "should_refuse": false,
+    "verified": false
+  },
+
+  {
+    "id": "q011",
+    "category": "single_fact",
+    "question": "How do I return a 404 error when an item is not found?",
+    "expected_sources": ["tutorial/handling-errors.md"],
+    "must_contain": ["HTTPException"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q012",
+    "category": "single_fact",
+    "question": "How do I read a cookie value in a route?",
+    "expected_sources": ["tutorial/cookie-params.md"],
+    "must_contain": ["Cookie"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q013",
+    "category": "single_fact",
+    "question": "How do I read a request header in a route?",
+    "expected_sources": [
+      "tutorial/header-params.md",
+      "how-to/custom-request-and-route.md"
+    ],
+    "must_contain": ["Header"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q014",
+    "category": "single_fact",
+    "question": "How do I serve static files from a directory?",
+    "expected_sources": ["tutorial/static-files.md"],
+    "must_contain": ["StaticFiles"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q015",
+    "category": "single_fact",
+    "question": "How do I use a custom response class like PlainTextResponse?",
+    "expected_sources": ["advanced/custom-response.md"],
+    "must_contain": ["PlainTextResponse"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q016",
+    "category": "single_fact",
+    "question": "How do I set a custom HTTP status code on a route?",
+    "expected_sources": ["tutorial/response-status-code.md"],
+    "must_contain": ["status_code"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q017",
+    "category": "single_fact",
+    "question": "How do I mount a WSGI application such as Flask inside FastAPI?",
+    "expected_sources": ["advanced/wsgi.md"],
+    "must_contain": ["WSGIMiddleware"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q018",
+    "category": "single_fact",
+    "question": "How do I declare a query parameter with an integer type?",
+    "expected_sources": [
+    "tutorial/query-params.md",
+    "tutorial/query-params-str-validations.md"
+    ],
+    "must_contain": ["skip"],
+    "should_refuse": false,
+    "verified": false
+  },
+
+  {
+    "id": "q019",
+    "category": "multi_chunk",
+    "question": "How do I test a route that uses dependency injection?",
+    "expected_sources": ["tutorial/testing.md", "tutorial/dependencies/index.md"],
+    "must_contain": ["TestClient"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q020",
+    "category": "multi_chunk",
+    "question": "How do I raise an HTTP error inside a dependency?",
+    "expected_sources": ["tutorial/dependencies/index.md", "tutorial/handling-errors.md"],
+    "must_contain": ["HTTPException"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q021",
+    "category": "multi_chunk",
+    "question": "How do I define a Pydantic request body and a response model on the same route?",
+    "expected_sources": ["tutorial/body.md", "tutorial/response-model.md"],
+    "must_contain": ["BaseModel"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q022",
+    "category": "multi_chunk",
+    "question": "How do I secure a route with OAuth2 JWT and get the current user?",
+    "expected_sources": [
+      "tutorial/security/first-steps.md",
+      "tutorial/security/oauth2-jwt.md",
+      "tutorial/security/get-current-user.md"
+],
+    "must_contain": ["OAuth2PasswordBearer"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q023",
+    "category": "multi_chunk",
+    "question": "How do I combine CORS with a custom middleware?",
+    "expected_sources": ["tutorial/cors.md", "tutorial/middleware.md"],
+    "must_contain": ["CORSMiddleware"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q024",
+    "category": "multi_chunk",
+    "question": "How do I trigger a background task from a WebSocket endpoint?",
+    "expected_sources": ["tutorial/background-tasks.md", "advanced/websockets.md"],
+    "must_contain": ["BackgroundTasks"],
+    "should_refuse": false,
+    "verified": false
+  },
+
+  {
+    "id": "q025",
+    "category": "paraphrase",
+    "question": "What piece of code makes a Python function run after the HTTP reply has already been sent?",
+    "expected_sources": ["tutorial/background-tasks.md"],
+    "must_contain": ["BackgroundTasks"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q026",
+    "category": "paraphrase",
+    "question": "How can a web service tell a browser which origins are allowed to call it?",
+    "expected_sources": ["tutorial/cors.md"],
+    "must_contain": ["CORSMiddleware"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q027",
+    "category": "paraphrase",
+    "question": "How do I ask the framework to hand me an object that another function has already prepared?",
+    "expected_sources": ["tutorial/dependencies/index.md"],
+    "must_contain": ["Depends"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q028",
+    "category": "paraphrase",
+    "question": "How do I accept an uploaded file from a form submission?",
+    "expected_sources": ["tutorial/request-files.md"],
+    "must_contain": ["UploadFile"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q029",
+    "category": "paraphrase",
+    "question": "What mechanism lets me keep a two-way connection open between the server and the client?",
+    "expected_sources": ["advanced/websockets.md"],
+    "must_contain": ["WebSocket"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q030",
+    "category": "paraphrase",
+    "question": "How do I check that my endpoints behave correctly while developing?",
+    "expected_sources": ["tutorial/testing.md"],
+    "must_contain": ["TestClient"],
+    "should_refuse": false,
+    "verified": false
+  },
+
+  {
+    "id": "q031",
+    "category": "rare_term",
+    "question": "How do I use OAuth2PasswordBearer to obtain a token?",
+    "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
+    "must_contain": ["OAuth2PasswordBearer"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q032",
+    "category": "rare_term",
+    "question": "When should I call websocket.accept()?",
+    "expected_sources": ["advanced/websockets.md"],
+    "must_contain": ["WebSocket"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q033",
+    "category": "rare_term",
+    "question": "What does response_model_exclude_unset do?",
+    "expected_sources": ["tutorial/response-model.md"],
+    "must_contain": ["response_model_exclude_unset"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q034",
+    "category": "rare_term",
+    "question": "How do I use APIRouter to split routes across modules?",
+    "expected_sources": ["tutorial/bigger-applications.md"],
+    "must_contain": ["APIRouter"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q035",
+    "category": "rare_term",
+    "question": "How do I configure a lifespan handler for startup and shutdown?",
+    "expected_sources": ["advanced/events.md"],
+    "must_contain": ["lifespan"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q036",
+    "category": "rare_term",
+    "question": "What is the purpose of the jsonable_encoder function?",
+    "expected_sources": ["tutorial/encoder.md"],
+    "must_contain": ["jsonable_encoder"],
+    "should_refuse": false,
+    "verified": false
+  },
+
+  {
+    "id": "q037",
+    "category": "should_refuse",
+    "question": "How do I set up a Redis cache for FastAPI responses?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q038",
+    "category": "should_refuse",
+    "question": "What is the recommended database sharding strategy for FastAPI with Postgres?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q039",
+    "category": "should_refuse",
+    "question": "How do I configure feature flags with LaunchDarkly in a FastAPI app?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q040",
+    "category": "should_refuse",
+    "question": "How do I set up mutual TLS client certificate authentication for a FastAPI service?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q041",
+    "category": "should_refuse",
+    "question": "What is the recommended CI/CD pipeline for deploying FastAPI to Kubernetes?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q042",
+    "category": "should_refuse",
+    "question": "How do I do A/B testing of FastAPI routes using an external service?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q043",
+    "category": "should_refuse",
+    "question": "How do I write a custom OpenAPI schema validator that runs on every request?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+  {
+    "id": "q044",
+    "category": "should_refuse",
+    "question": "How do I configure Apache Kafka as the message broker for background tasks?",
+    "expected_sources": [],
+    "must_contain": [],
+    "should_refuse": true,
+    "verified": false
+  },
+
+  {
+    "id": "q045",
+    "category": "ambiguous_or_short",
+    "question": "CORS?",
+    "expected_sources": ["tutorial/cors.md"],
+    "must_contain": ["CORSMiddleware"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q046",
+    "category": "ambiguous_or_short",
+    "question": "WebSockets?",
+    "expected_sources": ["advanced/websockets.md"],
+    "must_contain": ["WebSocket"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q047",
+    "category": "ambiguous_or_short",
+    "question": "Testing?",
+    "expected_sources": ["tutorial/testing.md"],
+    "must_contain": ["TestClient"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q048",
+    "category": "ambiguous_or_short",
+    "question": "Dependencies?",
+    "expected_sources": ["tutorial/dependencies/index.md"],
+    "must_contain": ["Depends"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q049",
+    "category": "ambiguous_or_short",
+    "question": "OAuth2?",
+    "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
+    "must_contain": ["OAuth2PasswordBearer"],
+    "should_refuse": false,
+    "verified": false
+  },
+  {
+    "id": "q050",
+    "category": "ambiguous_or_short",
+    "question": "Static files?",
+    "expected_sources": ["tutorial/static-files.md"],
+    "must_contain": ["StaticFiles"],
+    "should_refuse": false,
+    "verified": false
   }
 ]

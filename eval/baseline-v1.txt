@@ -1,0 +1,22 @@
+Loading retriever...
+Running evaluation on 50 questions (k=5)...
+
+category                  n  err    h@1    h@3    h@5    mrr    r@5   ev@5  empty  top_s
+----------------------------------------------------------------------------------------
+overall                  50    0   0.52   0.79   0.81   0.64   0.71   0.69   0.00  13.93
+ambiguous_or_short        9    0   0.33   0.78   0.78   0.52   0.78   0.89   0.00   9.36
+multi_chunk               6    0   0.50   0.83   0.83   0.64   0.53   0.50   0.00  16.48
+paraphrase                6    0   0.33   0.33   0.33   0.33   0.33   0.33   0.00  15.11
+rare_term                 6    0   0.83      1      1   0.92   0.92      1   0.00  16.54
+should_refuse             8    0      -      -      -      -      -      -   0.00  13.54
+single_fact              15    0   0.60   0.87   0.93   0.72   0.80   0.67   0.00  14.34
+
+Misses (8):
+  q008     [single_fact         ] top_score=9.65
+  q021     [multi_chunk         ] top_score=15.31
+  q025     [paraphrase          ] top_score=15.45
+  q027     [paraphrase          ] top_score=11.04
+  q029     [paraphrase          ] top_score=20.86
+  q030     [paraphrase          ] top_score=9.71
+  q048     [ambiguous_or_short  ] top_score=4.59
+  q049     [ambiguous_or_short  ] top_score=7.17
