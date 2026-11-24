@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+# Make the repo root importable when running as `python scripts/try_search.py`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from retrieve import Retriever
 
 retriever = Retriever()

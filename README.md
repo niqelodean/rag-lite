@@ -49,11 +49,9 @@ The BM25 index is built in memory when the API starts from `data/chunks.json`; t
 
 ### 1. Clone the repository and create a virtual environment
 
-Replace `<your-username>` with the GitHub account or organization that hosts the repository.
-
 ```bash
-git clone https://github.com/<your-username>/rag_lite.git
-cd rag_lite
+git clone https://github.com/niqelodean/rag-lite.git
+cd rag-lite
 python -m venv .venv
 ```
 
@@ -69,7 +67,7 @@ source .venv/bin/activate
 
 ### 2. Install dependencies
 
-Install the application dependencies with the requested command:
+Install the application dependencies:
 
 ```bash
 pip install fastapi uvicorn requests rank_bm25
@@ -145,26 +143,41 @@ The response contains the generated `answer` and a `sources` array listing the r
 ## Project Structure
 
 ```text
-rag_lite/
-├── ask.py             # Builds context and calls the local Ollama API
-├── chunk.py           # Splits downloaded Markdown into sections and chunks
-├── ingest.py          # Downloads official FastAPI English documentation
-├── main.py            # FastAPI application and API endpoints
-├── retrieve.py        # Tokenization and BM25 search
-├── requirements.txt   # Pinned Python dependencies
-└── data/              # Generated locally; excluded from Git
-    ├── docs/          # Downloaded Markdown source files
-    └── chunks.json    # Chunk records used by retrieval
+rag-lite/
+├── ask.py                # Builds context and calls the local Ollama API
+├── chunk.py              # Splits downloaded Markdown into sections and chunks
+├── ingest.py             # Downloads official FastAPI English documentation
+├── main.py               # FastAPI application and API endpoints
+├── retrieve.py           # Tokenization and BM25 search
+├── index.html            # Simple web frontend served at /
+├── eval/                 # Ground-truth questions and the evaluation script
+├── scripts/              # Debugging helpers (inspect chunks, try searches)
+├── tests/                # pytest suite for chunking and retrieval
+├── requirements.txt      # Pinned Python dependencies
+├── requirements-dev.txt  # Adds test dependencies (pytest)
+└── data/                 # Generated locally; excluded from Git
+    ├── docs/             # Downloaded Markdown source files
+    └── chunks.json       # Chunk records used by retrieval
 ```
+
+## Running Tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+The tests cover chunking and BM25 retrieval, and they use small in-memory fixtures, so they need no downloaded docs, internet access, or Ollama.
 
 ## Future Improvements
 
 - Replace or complement BM25 with vector embeddings and [ChromaDB](https://www.trychroma.com/) to improve retrieval when users phrase queries with synonyms that do not share exact keywords with the docs.
 - Add configurable model, Ollama endpoint, and retrieval settings.
-- Add automated checks for ingestion, chunk generation, retrieval quality, and citation coverage.
- 
+- Extend automated checks to ingestion and citation coverage, and run the retrieval evaluation in CI.
+
 ## Evaluation
-This system was evaluated against a ground-truth dataset of 10 questions with known target files (`eval/questions.json`). Baseline BM25 performance:
+
+This system was evaluated against a ground-truth dataset of 10 questions with known target files (`eval/questions.json`). After ingesting and chunking the docs, run it from the repository root with `python eval/runeval.py`. Baseline BM25 performance:
 
 - **Hit Rate @ 1:** 40%
 - **Hit Rate @ 3:** 80%
@@ -174,4 +187,4 @@ This system was evaluated against a ground-truth dataset of 10 questions with kn
 
 ## License
 
-No license file is currently included. Add a `LICENSE` file to specify the terms under which this project may be used and redistributed. The FastAPI documentation fetched by the ingestion script remains subject to its own licensing terms.
+This project is licensed under the [MIT License](LICENSE). The FastAPI documentation fetched by the ingestion script remains subject to its own licensing terms.
