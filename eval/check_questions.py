@@ -19,10 +19,11 @@ NOTE: The old --docs-dir flag is gone. If you've updated data/docs/, run ingest
 first so chunks.json reflects the new snapshot.
 """
 import argparse
+from datetime import datetime
 import json
 import re
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 # Files that are navigation or changelog, not documentation. A topic mentioned
 # only here is still "out of scope" for refuse questions.
@@ -37,9 +38,14 @@ NON_DOC_FILES = {
 # to prove retrieval found the right chunk.
 GENERIC_THRESHOLD = 0.05
 
-# Topic term can appear in at most this many doc chunks and still count as
-# "undocumented" (allows one stray mention).
-REFUSE_MAX_DOC_CHUNKS = 1
+# A refuse question is valid only when its topic terms are absent from all
+# documentation chunks (after excluding navigation/changelog files).
+REFUSE_MAX_DOC_CHUNKS = 0
+
+VALID_CATEGORIES = {
+    "single_fact", "paraphrase", "multi_chunk", "rare_term", "ambiguous_or_short",
+    "should_refuse",
+}
 
 
 def _tokens(text: str) -> set[str]:
@@ -58,8 +64,35 @@ def _doc_freq(term: str, chunks, exclude_sources=None) -> int:
     exclude = exclude_sources or set()
     return sum(
         1 for c in chunks
-        if c.get("source") not in exclude and _phrase_match(term, c.get("text", ""))
+        if PurePosixPath(c.get("source", "")).name not in exclude
+        and _phrase_match(term, c.get("text", ""))
     )
+
+
+def _check_verification_metadata(q: dict) -> list[str]:
+    errors = []
+    for field in ("verified", "verified_by", "verified_at"):
+        if field not in q:
+            errors.append(f"missing required field '{field}'")
+    if errors:
+        return errors
+    if not isinstance(q["verified"], bool):
+        errors.append("'verified' must be a boolean")
+    elif q["verified"]:
+        if not isinstance(q["verified_by"], str) or not q["verified_by"].strip():
+            errors.append("verified question needs a non-empty 'verified_by'")
+        if not isinstance(q["verified_at"], str):
+            errors.append("verified question needs an ISO 'verified_at' timestamp")
+        else:
+            try:
+                if "T" not in q["verified_at"]:
+                    raise ValueError("timestamp separator is missing")
+                datetime.fromisoformat(q["verified_at"].replace("Z", "+00:00"))
+            except ValueError:
+                errors.append("'verified_at' must be an ISO-8601 timestamp")
+    elif q["verified_by"] is not None or q["verified_at"] is not None:
+        errors.append("unverified question must have null 'verified_by' and 'verified_at'")
+    return errors
 
 
 def main() -> int:
@@ -95,6 +128,19 @@ def main() -> int:
     for q in questions:
         qid = q["id"]
 
+        for message in _check_verification_metadata(q):
+            print(f"[{qid}] ERROR: {message}")
+            errors += 1
+        if q.get("category") not in VALID_CATEGORIES:
+            print(f"[{qid}] ERROR: invalid or missing category '{q.get('category')}'")
+            errors += 1
+        if q.get("should_refuse") and q.get("category") != "should_refuse":
+            print(f"[{qid}] ERROR: refuse question category must be 'should_refuse'")
+            errors += 1
+        if not q.get("should_refuse") and q.get("category") == "should_refuse":
+            print(f"[{qid}] ERROR: answerable question cannot use 'should_refuse' category")
+            errors += 1
+
         # ── Refuse questions: topic_terms must be absent from real docs ──
         if q.get("should_refuse"):
             terms = q.get("topic_terms") or []
@@ -127,9 +173,8 @@ def main() -> int:
         if not must:
             continue
 
-        source_text = " ".join(t for s in srcs for t in by_source[s])
         for term in must:
-            if not _phrase_match(term, source_text):
+            if not any(_phrase_match(term, chunk) for s in srcs for chunk in by_source[s]):
                 print(f"[{qid}] ERROR: must_contain '{term}' not found in any chunk of {srcs}")
                 errors += 1
                 continue

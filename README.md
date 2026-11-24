@@ -12,7 +12,7 @@ Ask questions about the FastAPI framework and get answers grounded in its offici
 
 ## How It Works
 
-`ingest.py` downloads English Markdown files under `docs/en/docs/` from the official `fastapi/fastapi` GitHub repository. `chunk.py` separates content at `##` and `###` headings, then splits long sections at paragraph boundaries. `retrieve.py` tokenizes the resulting passages and ranks them with BM25. When a question reaches the API, the top three matching passages are placed into a prompt and sent to the local Ollama model configured in `ask.py` (default: `llama3.2`).
+`ingest.py` downloads English Markdown files under `docs/en/docs/` from the official `fastapi/fastapi` GitHub repository. It defaults to the pinned commit `05e6df7e906c3decba377c37548019973f40bf15`; pass `--ref <git-ref-or-sha>` to select another snapshot. `chunk.py` separates content at `##` and `###` headings, then splits long sections at paragraph boundaries. `retrieve.py` tokenizes the resulting passages and ranks them with BM25. When a question reaches the API, the top three matching passages are placed into a prompt and sent to the local Ollama model configured in `ask.py` (default: `llama3.2`).
 
 ```text
 Official FastAPI Docs
@@ -88,7 +88,7 @@ python ingest.py
 python chunk.py
 ```
 
-`ingest.py` creates `data/docs/` and downloads the English Markdown documentation. `chunk.py` reads those files and writes the passages to `data/chunks.json`. The first command needs internet access and uses the GitHub API and raw GitHub content. Rerun these commands to refresh the local documentation snapshot. Both generated data paths are ignored by Git.
+`ingest.py` creates `data/docs/` and downloads the English Markdown documentation from the pinned commit. To intentionally use another upstream revision, pass it explicitly, for example `python ingest.py --ref <commit-sha>`. `chunk.py` reads those files and writes the passages to `data/chunks.json`. The first command needs internet access and uses the GitHub API and raw GitHub content. Both generated data paths are ignored by Git.
 
 ### 4. Install and start Ollama
 
@@ -150,9 +150,9 @@ rag-lite/
 ├── main.py               # FastAPI application and API endpoints
 ├── retrieve.py           # Tokenization and BM25 search
 ├── index.html            # Simple web frontend served at /
-├── eval/                 # Ground-truth questions and the evaluation script
+├── eval/                 # Ground-truth questions, validation, and eval baseline
 ├── scripts/              # Debugging helpers (inspect chunks, try searches)
-├── tests/                # pytest suite for chunking and retrieval
+├── tests/                # pytest suite for chunking, retrieval, and evaluation
 ├── requirements.txt      # Pinned Python dependencies
 ├── requirements-dev.txt  # Adds test dependencies (pytest)
 └── data/                 # Generated locally; excluded from Git
@@ -167,7 +167,7 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
-The tests cover chunking and BM25 retrieval, and they use small in-memory fixtures, so they need no downloaded docs, internet access, or Ollama.
+The tests cover chunking, BM25 retrieval, and evaluation scoring using small in-memory fixtures, so they need no downloaded docs, internet access, or Ollama. To check the question set against your local indexed corpus, run `python eval/check_questions.py` after ingestion.
 
 ## Future Improvements
 
@@ -177,13 +177,27 @@ The tests cover chunking and BM25 retrieval, and they use small in-memory fixtur
 
 ## Evaluation
 
-This system was evaluated against a ground-truth dataset of 10 questions with known target files (`eval/questions.json`). After ingesting and chunking the docs, run it from the repository root with `python eval/runeval.py`. Baseline BM25 performance:
+The retrieval harness evaluates 50 questions from `eval/questions.json`: 42 answerable questions and 8 questions that should be refused. Run the checks from the repository root:
 
-- **Hit Rate @ 1:** 40%
-- **Hit Rate @ 3:** 80%
-- **Mean Reciprocal Rank (MRR):** 0.567
+```bash
+python eval/check_questions.py
+python eval/runeval.py
+```
 
-*Known limitation: BM25 struggles with synonyms (e.g., searching "add header" vs. "set header").* 
+The checker validates answerable evidence terms within individual indexed chunks, flags overly common evidence terms, checks refusal topic terms against the documentation chunks, and validates question category and verification metadata. `verified` remains false until a person checks the question and its labels; when setting it true, fill in `verified_by` and an ISO-8601 `verified_at` value.
+
+Baseline BM25 results at `k=5` and `MIN_SCORE=1.0`:
+
+- **Hit @ 1:** 0.52
+- **Hit @ 3:** 0.79
+- **Hit @ 5:** 0.81
+- **MRR:** 0.64
+- **Recall @ 5:** 0.71
+- **Evidence @ 5:** 0.69
+
+Refusal questions are reported separately with each raw top score and the raw minimum, median, and maximum. Raw scores are measured before `MIN_SCORE`; they indicate retrieval strength, not whether the generated answer actually refuses. The baseline records hashes for the local documentation and chunk snapshot. The upstream commit for that existing snapshot was not recorded, so its origin cannot be reconstructed from the old baseline; future ingests use the pinned commit above.
+
+*Known limitation: BM25 struggles with synonyms (e.g., searching "add header" vs. "set header").*
 
 ## License
 

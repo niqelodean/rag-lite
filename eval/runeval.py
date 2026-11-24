@@ -7,7 +7,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from statistics import mean
+from statistics import mean, median
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from retrieve import Retriever
@@ -127,7 +127,7 @@ def summarise_refuse(subset):
     return {
         "n": n,
         "raw_min": round(raw[0], 2),
-        "raw_median": round(raw[n // 2], 2),
+        "raw_median": round(median(raw), 2),
         "raw_max": round(raw[-1], 2),
         "post_min": round(min(post), 2),
         "empty_rate": round(sum(1 for r in ref if r.get("empty")) / n, 3),
@@ -188,11 +188,15 @@ def main():
         print(f"\n  Separation: answerable raw_min={ans_raw_min:.2f} vs "
               f"refuse raw_max={refuse['raw_max']:.2f}")
         if refuse["raw_max"] >= ans_raw_min:
-            print(f"  → distributions OVERLAP — no MIN_SCORE can cleanly separate "
-                  f"answerable from refuse. Refusal must happen at LLM layer.")
+            print("  → observed score ranges overlap; MIN_SCORE alone cannot separate "
+                  "all answerable and refuse queries in this sample.")
         else:
-            print(f"  → clean gap exists — MIN_SCORE in ({refuse['raw_max']:.2f}, "
-                  f"{ans_raw_min:.2f}) separates them.")
+            print(f"  → observed score ranges have a gap; MIN_SCORE in "
+                  f"({refuse['raw_max']:.2f}, {ans_raw_min:.2f}) separates this sample.")
+
+        print("  Per-query raw top scores:")
+        for r in sorted((r for r in refuse_rows if not r.get("error")), key=lambda r: r["id"]):
+            print(f"    {r['id']}: {r['raw_top_score']:.2f}")
 
     # ── Misses ──────────────────────────────────────────────────────────
     misses = [r for r in answerable_rows if r.get("hit@5") is False]

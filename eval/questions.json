@@ -67,7 +67,7 @@
   },
   {
     "id": "q007",
-    "category": "ambiguous_or_short",
+    "category": "single_fact",
     "question": "What are background tasks?",
     "expected_sources": ["tutorial/background-tasks.md"],
     "must_contain": ["BackgroundTasks"],
@@ -89,7 +89,7 @@
   },
   {
     "id": "q009",
-    "category": "ambiguous_or_short",
+    "category": "single_fact",
     "question": "How do I use WebSockets?",
     "expected_sources": ["advanced/websockets.md"],
     "must_contain": ["WebSocket"],

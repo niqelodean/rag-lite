@@ -1,28 +1,53 @@
-Loading retriever...
-Running evaluation on 50 questions (k=5)...
+RAG-lite retrieval baseline
+===========================
+
+Evaluation: 50 questions (42 answerable, 8 should refuse)
+Retriever: BM25, k=5, MIN_SCORE=1.0
+Evaluation code: eval/runeval.py
+Question validation: eval/check_questions.py
+
+Corpus provenance
+-----------------
+Upstream FastAPI commit for this existing local corpus: not recorded when it
+was ingested. Do not attribute this baseline to a later pinned commit.
+FastAPI docs content SHA-256 (relative paths and file bytes):
+  c642c707b072fa0a9010864b5f0c3bbd658f8610f8d479cc3ff8f2befdba08ab
+data/chunks.json SHA-256:
+  b168082f5a8be4933fb4ea943e2a76179eca1053b836b476221086f4a88f8365
+
+Future ingests default to FastAPI commit
+05e6df7e906c3decba377c37548019973f40bf15 (override with --ref). Re-run the
+evaluation after ingesting and chunking that revision before comparing it to
+this baseline.
 
 ANSWERABLE QUESTIONS
 category                  n    h@1    h@3    h@5    mrr    r@5   ev@5
 ---------------------------------------------------------------------
 overall                  42   0.52   0.79   0.81   0.64   0.71   0.69
-ambiguous_or_short        8   0.38   0.75   0.75   0.52   0.75   0.88
+ambiguous_or_short        6   0.33   0.67   0.67   0.47   0.67   0.83
 multi_chunk               6   0.50   0.83   0.83   0.64   0.53   0.50
 paraphrase                6   0.33   0.33   0.33   0.33   0.33   0.33
-rare_term                 6   0.83      1      1   0.92   0.92      1
-single_fact              16   0.56   0.88   0.94   0.70   0.81   0.69
+rare_term                 6   0.83   1.00   1.00   0.92   0.92   1.00
+single_fact              18   0.56   0.89   0.94   0.70   0.83   0.72
 
-SHOULD_REFUSE (raw scores, pre-MIN_SCORE)
-  n=8  raw_min=6.8  raw_median=13.05  raw_max=23.29  post_min_filter_top=6.8  empty_rate=0.0
+SHOULD_REFUSE (raw top scores, before MIN_SCORE)
+n=8  raw_min=6.80  raw_median=12.94  raw_max=23.29
+post_min_filter_top=6.80  empty_rate=0.000
+Per-question raw top scores:
+  q037=17.49  q038=7.96  q039=10.75  q040=23.29
+  q041=13.05  q042=13.75  q043=12.83  q044=6.80
 
-  Separation: answerable raw_min=4.59 vs refuse raw_max=23.29
-  → distributions OVERLAP — no MIN_SCORE can cleanly separate answerable from refuse. Refusal must happen at LLM layer.
+Observed answerable raw minimum=4.59 and refusal raw maximum=23.29;
+the observed score ranges overlap, so no single MIN_SCORE separates all
+questions in this sample. These retrieval scores are not an end-to-end refusal
+or generation-quality metric.
 
-Misses (8):
-  q008     [single_fact         ] raw_top=9.65
-  q021     [multi_chunk         ] raw_top=15.31
-  q025     [paraphrase          ] raw_top=15.45
-  q027     [paraphrase          ] raw_top=11.04
-  q029     [paraphrase          ] raw_top=20.86
-  q030     [paraphrase          ] raw_top=9.71
-  q048     [ambiguous_or_short  ] raw_top=4.59
-  q049     [ambiguous_or_short  ] raw_top=7.17
+Misses at Hit@5 (8):
+  q008 [single_fact] raw_top=9.65
+  q021 [multi_chunk] raw_top=15.31
+  q025 [paraphrase] raw_top=15.45
+  q027 [paraphrase] raw_top=11.04
+  q029 [paraphrase] raw_top=20.86
+  q030 [paraphrase] raw_top=9.71
+  q048 [ambiguous_or_short] raw_top=4.59
+  q049 [ambiguous_or_short] raw_top=7.17
