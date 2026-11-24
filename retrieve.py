@@ -80,3 +80,22 @@ class Retriever:
                 break
 
         return results
+    
+    def raw_scores(self, query):
+        """Return [(index, score), ...] for every chunk, unfiltered by MIN_SCORE.
+
+        Used by eval/runeval.py to observe the true score distribution for
+        tuning MIN_SCORE against refuse vs answerable questions.
+        """
+        query_words = tokenize(query)
+        if not query_words:
+            return []
+        
+        scores = self.bm25.get_scores(query_words)
+        ranked = sorted(
+            ((i, float(s)) for i, s in enumerate(scores)),
+            key=lambda x: x[1],
+            reverse=True,
+        )
+        
+        return ranked

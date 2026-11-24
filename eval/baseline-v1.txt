@@ -1,22 +1,28 @@
 Loading retriever...
 Running evaluation on 50 questions (k=5)...
 
-category                  n  err    h@1    h@3    h@5    mrr    r@5   ev@5  empty  top_s
-----------------------------------------------------------------------------------------
-overall                  50    0   0.52   0.79   0.81   0.64   0.71   0.69   0.00  13.93
-ambiguous_or_short        9    0   0.33   0.78   0.78   0.52   0.78   0.89   0.00   9.36
-multi_chunk               6    0   0.50   0.83   0.83   0.64   0.53   0.50   0.00  16.48
-paraphrase                6    0   0.33   0.33   0.33   0.33   0.33   0.33   0.00  15.11
-rare_term                 6    0   0.83      1      1   0.92   0.92      1   0.00  16.54
-should_refuse             8    0      -      -      -      -      -      -   0.00  13.54
-single_fact              15    0   0.60   0.87   0.93   0.72   0.80   0.67   0.00  14.34
+ANSWERABLE QUESTIONS
+category                  n    h@1    h@3    h@5    mrr    r@5   ev@5
+---------------------------------------------------------------------
+overall                  42   0.52   0.79   0.81   0.64   0.71   0.69
+ambiguous_or_short        8   0.38   0.75   0.75   0.52   0.75   0.88
+multi_chunk               6   0.50   0.83   0.83   0.64   0.53   0.50
+paraphrase                6   0.33   0.33   0.33   0.33   0.33   0.33
+rare_term                 6   0.83      1      1   0.92   0.92      1
+single_fact              16   0.56   0.88   0.94   0.70   0.81   0.69
+
+SHOULD_REFUSE (raw scores, pre-MIN_SCORE)
+  n=8  raw_min=6.8  raw_median=13.05  raw_max=23.29  post_min_filter_top=6.8  empty_rate=0.0
+
+  Separation: answerable raw_min=4.59 vs refuse raw_max=23.29
+  → distributions OVERLAP — no MIN_SCORE can cleanly separate answerable from refuse. Refusal must happen at LLM layer.
 
 Misses (8):
-  q008     [single_fact         ] top_score=9.65
-  q021     [multi_chunk         ] top_score=15.31
-  q025     [paraphrase          ] top_score=15.45
-  q027     [paraphrase          ] top_score=11.04
-  q029     [paraphrase          ] top_score=20.86
-  q030     [paraphrase          ] top_score=9.71
-  q048     [ambiguous_or_short  ] top_score=4.59
-  q049     [ambiguous_or_short  ] top_score=7.17
+  q008     [single_fact         ] raw_top=9.65
+  q021     [multi_chunk         ] raw_top=15.31
+  q025     [paraphrase          ] raw_top=15.45
+  q027     [paraphrase          ] raw_top=11.04
+  q029     [paraphrase          ] raw_top=20.86
+  q030     [paraphrase          ] raw_top=9.71
+  q048     [ambiguous_or_short  ] raw_top=4.59
+  q049     [ambiguous_or_short  ] raw_top=7.17

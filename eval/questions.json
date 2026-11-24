@@ -6,7 +6,9 @@
     "expected_sources": ["tutorial/path-params.md"],
     "must_contain": ["int"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q002",
@@ -15,28 +17,31 @@
     "expected_sources": ["tutorial/dependencies/index.md"],
     "must_contain": ["Depends"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q003",
     "category": "single_fact",
     "question": "How do I add a custom response header?",
-    "expected_sources": [
-      "advanced/response-headers.md",
-      "how-to/custom-request-and-route.md"
-    ],
+    "expected_sources": ["advanced/response-headers.md", "how-to/custom-request-and-route.md"],
     "must_contain": ["headers"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q004",
-    "category": "ambiguous_or_short",
+    "category": "single_fact",
     "question": "How do I use query parameters?",
     "expected_sources": ["tutorial/query-params.md"],
-    "must_contain": ["query"],
+    "must_contain": ["query parameters"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q005",
@@ -45,7 +50,9 @@
     "expected_sources": ["tutorial/cors.md"],
     "must_contain": ["CORSMiddleware"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q006",
@@ -54,7 +61,9 @@
     "expected_sources": ["tutorial/body.md"],
     "must_contain": ["BaseModel"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q007",
@@ -63,7 +72,9 @@
     "expected_sources": ["tutorial/background-tasks.md"],
     "must_contain": ["BackgroundTasks"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q008",
@@ -72,7 +83,9 @@
     "expected_sources": ["tutorial/testing.md"],
     "must_contain": ["TestClient"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q009",
@@ -81,7 +94,9 @@
     "expected_sources": ["advanced/websockets.md"],
     "must_contain": ["WebSocket"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q010",
@@ -90,9 +105,10 @@
     "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
     "must_contain": ["OAuth2PasswordBearer"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q011",
     "category": "single_fact",
@@ -100,7 +116,9 @@
     "expected_sources": ["tutorial/handling-errors.md"],
     "must_contain": ["HTTPException"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q012",
@@ -109,19 +127,20 @@
     "expected_sources": ["tutorial/cookie-params.md"],
     "must_contain": ["Cookie"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q013",
     "category": "single_fact",
     "question": "How do I read a request header in a route?",
-    "expected_sources": [
-      "tutorial/header-params.md",
-      "how-to/custom-request-and-route.md"
-    ],
+    "expected_sources": ["tutorial/header-params.md", "how-to/custom-request-and-route.md"],
     "must_contain": ["Header"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q014",
@@ -130,7 +149,9 @@
     "expected_sources": ["tutorial/static-files.md"],
     "must_contain": ["StaticFiles"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q015",
@@ -139,7 +160,9 @@
     "expected_sources": ["advanced/custom-response.md"],
     "must_contain": ["PlainTextResponse"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q016",
@@ -148,7 +171,9 @@
     "expected_sources": ["tutorial/response-status-code.md"],
     "must_contain": ["status_code"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q017",
@@ -157,21 +182,21 @@
     "expected_sources": ["advanced/wsgi.md"],
     "must_contain": ["WSGIMiddleware"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q018",
     "category": "single_fact",
     "question": "How do I declare a query parameter with an integer type?",
-    "expected_sources": [
-    "tutorial/query-params.md",
-    "tutorial/query-params-str-validations.md"
-    ],
+    "expected_sources": ["tutorial/query-params.md", "tutorial/query-params-str-validations.md"],
     "must_contain": ["skip"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q019",
     "category": "multi_chunk",
@@ -179,7 +204,9 @@
     "expected_sources": ["tutorial/testing.md", "tutorial/dependencies/index.md"],
     "must_contain": ["TestClient"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q020",
@@ -188,7 +215,9 @@
     "expected_sources": ["tutorial/dependencies/index.md", "tutorial/handling-errors.md"],
     "must_contain": ["HTTPException"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q021",
@@ -197,7 +226,9 @@
     "expected_sources": ["tutorial/body.md", "tutorial/response-model.md"],
     "must_contain": ["BaseModel"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q022",
@@ -207,10 +238,12 @@
       "tutorial/security/first-steps.md",
       "tutorial/security/oauth2-jwt.md",
       "tutorial/security/get-current-user.md"
-],
+    ],
     "must_contain": ["OAuth2PasswordBearer"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q023",
@@ -219,7 +252,9 @@
     "expected_sources": ["tutorial/cors.md", "tutorial/middleware.md"],
     "must_contain": ["CORSMiddleware"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q024",
@@ -228,9 +263,10 @@
     "expected_sources": ["tutorial/background-tasks.md", "advanced/websockets.md"],
     "must_contain": ["BackgroundTasks"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q025",
     "category": "paraphrase",
@@ -238,7 +274,9 @@
     "expected_sources": ["tutorial/background-tasks.md"],
     "must_contain": ["BackgroundTasks"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q026",
@@ -247,7 +285,9 @@
     "expected_sources": ["tutorial/cors.md"],
     "must_contain": ["CORSMiddleware"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q027",
@@ -256,7 +296,9 @@
     "expected_sources": ["tutorial/dependencies/index.md"],
     "must_contain": ["Depends"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q028",
@@ -265,7 +307,9 @@
     "expected_sources": ["tutorial/request-files.md"],
     "must_contain": ["UploadFile"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q029",
@@ -274,7 +318,9 @@
     "expected_sources": ["advanced/websockets.md"],
     "must_contain": ["WebSocket"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q030",
@@ -283,9 +329,10 @@
     "expected_sources": ["tutorial/testing.md"],
     "must_contain": ["TestClient"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q031",
     "category": "rare_term",
@@ -293,7 +340,9 @@
     "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
     "must_contain": ["OAuth2PasswordBearer"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q032",
@@ -302,7 +351,9 @@
     "expected_sources": ["advanced/websockets.md"],
     "must_contain": ["WebSocket"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q033",
@@ -311,7 +362,9 @@
     "expected_sources": ["tutorial/response-model.md"],
     "must_contain": ["response_model_exclude_unset"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q034",
@@ -320,7 +373,9 @@
     "expected_sources": ["tutorial/bigger-applications.md"],
     "must_contain": ["APIRouter"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q035",
@@ -329,7 +384,9 @@
     "expected_sources": ["advanced/events.md"],
     "must_contain": ["lifespan"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q036",
@@ -338,17 +395,21 @@
     "expected_sources": ["tutorial/encoder.md"],
     "must_contain": ["jsonable_encoder"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q037",
     "category": "should_refuse",
-    "question": "How do I set up a Redis cache for FastAPI responses?",
+    "question": "How do I configure Apache Kafka as the message broker for background tasks?",
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["kafka"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q038",
@@ -357,7 +418,10 @@
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["sharding", "shard key", "shard"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q039",
@@ -366,7 +430,10 @@
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["launchdarkly"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q040",
@@ -375,16 +442,22 @@
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["mutual tls", "mtls", "client certificate"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q041",
     "category": "should_refuse",
-    "question": "What is the recommended CI/CD pipeline for deploying FastAPI to Kubernetes?",
+    "question": "How do I configure Argo CD for GitOps-based deployment of a FastAPI service?",
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["argocd", "argo cd", "gitops"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q042",
@@ -393,27 +466,35 @@
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["a/b test", "ab test", "split.io", "optimizely"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q043",
     "category": "should_refuse",
-    "question": "How do I write a custom OpenAPI schema validator that runs on every request?",
+    "question": "How do I set up Jaeger distributed tracing across FastAPI services?",
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["jaeger"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q044",
     "category": "should_refuse",
-    "question": "How do I configure Apache Kafka as the message broker for background tasks?",
+    "question": "How do I provision a FastAPI deployment with Terraform?",
     "expected_sources": [],
     "must_contain": [],
     "should_refuse": true,
-    "verified": false
+    "topic_terms": ["terraform"],
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
-
   {
     "id": "q045",
     "category": "ambiguous_or_short",
@@ -421,7 +502,9 @@
     "expected_sources": ["tutorial/cors.md"],
     "must_contain": ["CORSMiddleware"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q046",
@@ -430,7 +513,9 @@
     "expected_sources": ["advanced/websockets.md"],
     "must_contain": ["WebSocket"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q047",
@@ -439,7 +524,9 @@
     "expected_sources": ["tutorial/testing.md"],
     "must_contain": ["TestClient"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q048",
@@ -448,7 +535,9 @@
     "expected_sources": ["tutorial/dependencies/index.md"],
     "must_contain": ["Depends"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q049",
@@ -457,7 +546,9 @@
     "expected_sources": ["tutorial/security/first-steps.md", "tutorial/security/oauth2-jwt.md"],
     "must_contain": ["OAuth2PasswordBearer"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   },
   {
     "id": "q050",
@@ -466,6 +557,8 @@
     "expected_sources": ["tutorial/static-files.md"],
     "must_contain": ["StaticFiles"],
     "should_refuse": false,
-    "verified": false
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
   }
 ]
