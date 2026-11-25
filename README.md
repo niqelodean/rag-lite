@@ -1,5 +1,4 @@
 # FastAPI Docs RAG
-
 A small retrieval-augmented generation app for asking questions about the FastAPI documentation. It downloads the official English Markdown docs, splits them into chunks, ranks passages with BM25, and can send the retrieved passages to a local Ollama model.
 
 The FastAPI server and model run locally. The browser UI loads the Marked.js Markdown renderer from jsDelivr, so the UI needs internet access to render formatted answers. Ingestion also needs internet access to download docs.
