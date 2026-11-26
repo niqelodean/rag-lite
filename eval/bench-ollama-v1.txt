@@ -9,7 +9,7 @@ Scope: speed and memory only. This is NOT an answer-quality evaluation.
 Conditions
 ----------
 Machine: MacBook Neo, other apps open, not controlled for background load
-Ollama version: <fill in from `ollama --version`>
+Ollama version: 0.40.16
 Endpoint: /api/chat, stream=false, keep_alive=-1
 Sampling: temperature=0.1, num_ctx=4096
 Prompts: 5 questions, top-3 BM25 chunks each, SYSTEM prompt from ask.py
