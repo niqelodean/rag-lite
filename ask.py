@@ -25,7 +25,6 @@ def call_llm(prompt):
             {"role": "user", "content": prompt},
         ],
         "stream": False,
-        "think": False,
         "keep_alive": -1,
         "options": {
             "temperature": 0.1,
