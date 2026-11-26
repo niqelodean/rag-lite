@@ -71,14 +71,14 @@
 
     <h1>FastAPI Docs RAG</h1>
     <div class="container">
-        <p>Ask a question about FastAPI. The system will search the local docs and answer using Llama 3.2.</p>
+        <p>Ask a question about FastAPI. The system will search the local docs and answer using LFM3.</p>
         
         <form id="ask-form" class="input-group">
             <input type="text" id="question" placeholder="e.g., How do I declare a path parameter?" required>
             <button type="submit" id="submit-btn">Ask</button>
         </form>
 
-        <div id="loading">Searching docs and generating answer... (this might take a few seconds)</div>
+        <div id="loading">Searching docs and generating answer... (Thinking... this can take a minute or two)</div>
 
         <div id="answer-box">
             <div id="answer-content"></div>

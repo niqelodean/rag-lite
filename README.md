@@ -8,7 +8,7 @@ The FastAPI server and model run locally. The browser UI loads the Marked.js Mar
 1. `ingest.py` downloads Markdown under `docs/en/docs/` from the FastAPI repository. The default is pinned to commit `05e6df7e906c3decba377c37548019973f40bf15`; pass `--ref <git-ref-or-sha>` to choose another revision.
 2. `chunk.py` splits documents at `##` and `###` headings and breaks long sections at paragraph boundaries. It skips release notes and `reference/` stubs.
 3. `retrieve.py` builds an in-memory BM25 index from `data/chunks.json`, removes common stopwords, and returns up to `k` passages with scores at or above `MIN_SCORE` (currently `1.0`).
-4. `/ask` sends the retrieved passages to Ollama (`llama3.2` by default). The prompt asks the model to answer from those passages and cite their source paths.
+4. `/ask` sends the retrieved passages to Ollama (`lfm3:1.7b` by default). The prompt asks the model to answer from those passages and cite their source paths.
 
 If retrieval returns no passages, `/ask` returns `Not found in the docs.` with an empty source list. When passages are found, the model is prompted to use the supplied context; this instruction does not guarantee answer accuracy or valid citations.
 
@@ -16,7 +16,7 @@ If retrieval returns no passages, `/ask` returns `Not found in the docs.` with a
 
 - Python 3.10 or newer
 - Internet access to download the documentation; the browser UI also loads Marked.js from jsDelivr
-- [Ollama](https://ollama.com/) and the `llama3.2` model for `/ask`
+- [Ollama](https://ollama.com/) and the `lfm3:1.7b` model for `/ask`
 
 Git is needed for the clone step below. The `/search` endpoint can be used without Ollama.
 
@@ -55,7 +55,7 @@ To use a different FastAPI revision, run `python ingest.py --ref <commit-sha>`. 
 Install and start Ollama in another terminal:
 
 ```bash
-ollama pull llama3.2
+ollama pull lfm3:1.7b
 ollama serve
 ```
 

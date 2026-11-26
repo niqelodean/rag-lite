@@ -1,0 +1,69 @@
+RAG-lite local generation speed benchmark
+=========================================
+
+Date: 2026-11-26
+Script: scripts/bench.py (the run below used the same prompts and settings;
+        the script was later moved here and now reads chunks via Retriever)
+Scope: speed and memory only. This is NOT an answer-quality evaluation.
+
+Conditions
+----------
+Machine: MacBook Neo, other apps open, not controlled for background load
+Ollama version: <fill in from `ollama --version`>
+Endpoint: /api/chat, stream=false, keep_alive=-1
+Sampling: temperature=0.1, num_ctx=4096
+Prompts: 5 questions, top-3 BM25 chunks each, SYSTEM prompt from ask.py
+  1. How do I declare a path parameter?
+  2. How do I set a default value for a query parameter?
+  3. How do I add a header parameter?
+  4. How do I validate a query parameter's max length?
+  5. How do I declare a request body?
+Runs: 2 per question (10 per model), one uncounted warm-up per model
+Statistic: median
+Thinking: LFM3 ran with its default reasoning ON. `think: false` was not used
+  (see Notes).
+Corpus: local data/chunks.json at the time of the run; its hash was not
+  recorded, so results cannot be attributed to a specific docs revision.
+
+Results
+-------
+model        loaded   tokens/sec   total time   output tokens   empty answers
+llama3.2     2.56 GB        13.1       10.10 s              91            0/10
+lfm3:1.7b    2.21 GB        25.6       95.43 s            2260            0/10
+
+Runtime shown by `ollama ps` (separate runs): llama3.2 -> llamacpp,
+lfm3:1.7b -> mlx. The models therefore ran on different runners, so the
+speed difference is not purely a model difference.
+
+Reading the numbers
+-------------------
+- LFM3 generated about 2x faster per token but wrote about 25x more tokens,
+  so each answer took about 9x longer end to end.
+- The output-token count includes hidden reasoning tokens that the UI never
+  shows.
+- LFM3 at ~2260 output tokens plus the ~1100-token prompt is close to
+  num_ctx=4096; longer reasoning could be truncated. Re-run with a larger
+  num_ctx before relying on LFM3 for long answers.
+
+Notes
+-----
+- An earlier run with `think: false` returned empty answers for 8/10 LFM3
+  requests (Ollama discarded the output) with 22.2 tokens/sec and 7.64 s total.
+  Those timings are invalid because no usable answer was produced. The LFM3
+  model card says reasoning is on by default and that disabling it can be
+  inconsistent.
+- Loaded size for LFM3 was 1.81 GB in that earlier run and 2.21 GB here; the
+  difference is probably the larger KV cache from long reasoning (not
+  verified).
+
+Answer quality (informal, not measured)
+---------------------------------------
+Judged by eye on 2-3 questions, no scoring rubric, no repeats:
+- Q "How do I declare a path parameter?": llama3.2 mentioned a
+  "#declare-a-path-parameter directive" (a docs heading anchor, not a FastAPI
+  feature) and unrelated enum classes.
+- Q "How do I set a default value for a query parameter?": LFM3 gave a correct
+  answer with working code and cited the retrieved files.
+These observations are not a reliable comparison. A scored generation
+evaluation (correct answer, citations present, "Not found in the docs." on
+out-of-scope questions) has not been run.
